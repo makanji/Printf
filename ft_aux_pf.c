@@ -6,41 +6,80 @@
 /*   By: makanji <makanji@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:22:12 by makanji           #+#    #+#             */
-/*   Updated: 2024/07/10 20:24:42 by makanji          ###   ########.fr       */
+/*   Updated: 2024/07/11 21:12:36 by makanji          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stddef.h>
+#include <stdlib.h>
+#include "ft_printf.h"
+
 size_t	ft_strlen_pf(const char *str)
 {
-	size_t i;
+	size_t	i;
 
 	if (!str)
-		return (NULL);
+		return (0);
 	i = 0;
 	while (str[i])
 		i++;
 	return (i);
 }
 
-void ft_bzero_pf(void *s, size_t n)
+void	ft_bzero_pf(void *s, size_t n)
 {
-	unsigned char *ptr;
+	unsigned char	*ptr;
 
-	ptr = (unsigned char *)s
+	ptr = (unsigned char *)s;
 	while (n--)
-		*ptr = 0
-		ptr++
-	
+	{
+		*ptr = 0;
+		ptr++;
+	}
 }
 
-void *ft_calloc_pf(size_t number, size_t size)
+void	*ft_calloc_pf(size_t number, size_t size)
 {
-	void *dest;
+	void	*dest;
 
-	
-	
+	dest = malloc (number * size);
+	if (dest == NULL)
+		return (NULL);
+	ft_bzero_pf(dest, number * size);
+	return (dest);
+}
 
+static size_t	ft_len(unsigned long long n, char *base)
+{
+	size_t				len;
+	unsigned long long	base_len;
 
+	len = 1;
+	base_len = ft_strlen_pf(base);
+	while (n >= base_len)
+	{
+		n /= base_len;
+		len++;
+	}
+	return (len);
+}
 
-	
+char	*ft_aux_pf(unsigned long long n, char *base)
+{
+	char	*str;
+	int		num_len;
+	int		base_len;
+
+	num_len = ft_len(n, base);
+	base_len = ft_strlen_pf(base);
+	str = ft_calloc_pf ((num_len + 1), sizeof(char));
+	if (!str)
+		return (NULL);
+	while (num_len)
+	{
+		num_len = num_len - 1;
+		str[num_len] = base[n % base_len];
+		n /= base_len;
+	}
+	return (str);
 }
