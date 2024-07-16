@@ -6,20 +6,20 @@
 /*   By: makanji <makanji@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 18:38:33 by makanji           #+#    #+#             */
-/*   Updated: 2024/07/11 18:38:47 by makanji          ###   ########.fr       */
+/*   Updated: 2024/07/16 18:57:18 by makanji          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_format(va_list va, char *str, size_t *counter)
+static void	ft_format(va_list va, char *str, size_t *counter)
 {
 	if (*str == 'c')
 		ft_putchar_pf(va_arg(va, int), counter);
 	else if (*str == 's')
 		ft_putstr_pf(va_arg(va, char *), counter);
 	else if (*str == 'p')
-		ft_putptr_pf(va_arg(va, void *), counter);
+		*counter += ft_putptr_pf(va_arg(va, void *));
 	else if (*str == 'i' || *str == 'd')
 		ft_putnbr_pf(va_arg(va, int), counter);
 	else if (*str == 'u')

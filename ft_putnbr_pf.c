@@ -6,28 +6,35 @@
 /*   By: makanji <makanji@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:52:41 by makanji           #+#    #+#             */
-/*   Updated: 2024/07/09 19:50:49 by makanji          ###   ########.fr       */
+/*   Updated: 2024/07/16 18:54:21 by makanji          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putnbr_pf(int num, size_t *counter)
+void	ft_putnbr_pf(int n, size_t *count)
 {
-	if (num == -2147483648)
+	char	buffer[12];
+	int		i;
+	long	num;
+
+	num = n;
+	i = 11;
+	buffer[i] = '\0';
+	if (num == 0)
 	{
-		ft_putnbr_pf((num / 10), counter);
-		ft_putnbr_pf('8', counter);
+		ft_putchar_pf('0', count);
+		return ;
 	}
-	else if (num < 0)
+	if (num < 0)
 	{
-		ft_putnbr_pf('-', counter);
-		ft_putnbr_pf(-num, counter);
+		ft_putchar_pf('-', count);
+		num = - (long)n;
 	}
-	else
+	while (num > 0)
 	{
-		if (num > 9)
-			ft_putnbr_pf((num / 10), counter);
-		ft_putnbr_pf(('0' + num % 10), counter);
+		buffer[--i] = (num % 10) + '0';
+		num /= 10;
 	}
+	ft_putstr_pf(&buffer[i], count);
 }

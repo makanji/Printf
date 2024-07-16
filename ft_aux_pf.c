@@ -6,7 +6,7 @@
 /*   By: makanji <makanji@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 17:22:12 by makanji           #+#    #+#             */
-/*   Updated: 2024/07/11 21:12:36 by makanji          ###   ########.fr       */
+/*   Updated: 2024/07/11 21:52:24 by makanji          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include "ft_printf.h"
 
-size_t	ft_strlen_pf(const char *str)
+static size_t	ft_strlen_pf(const char *str)
 {
 	size_t	i;
 
@@ -26,7 +26,7 @@ size_t	ft_strlen_pf(const char *str)
 	return (i);
 }
 
-void	ft_bzero_pf(void *s, size_t n)
+static void	ft_bzero_pf(void *s, size_t n)
 {
 	unsigned char	*ptr;
 
@@ -38,7 +38,7 @@ void	ft_bzero_pf(void *s, size_t n)
 	}
 }
 
-void	*ft_calloc_pf(size_t number, size_t size)
+static void	*ft_calloc_pf(size_t number, size_t size)
 {
 	void	*dest;
 
